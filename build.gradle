@@ -1,0 +1,20 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    compile group: 'org.json', name: 'json', version: '20190722'
+    compile 'org.apache.httpcomponents:httpclient:4.5.13'
+    compile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.0.0'
+    implementation "com.jayway.jsonpath:json-path:2.4.0"
+    compile "ch.qos.logback:logback-classic:1.2.3"
+
+}
