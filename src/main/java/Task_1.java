@@ -11,7 +11,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /*
 В задаче №1 мы получаем текущее время, указанное на компьютере.
@@ -29,7 +31,7 @@ C 00 часов до 04 часов включительно программа �
 
 public class Task_1 {
 
-    public static String getTime() throws JSONException, IOException {
+    public static int getTime() throws JSONException, IOException, ParseException {
 
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpGet httpget = new HttpGet("http://worldtimeapi.org/api/ip");
@@ -37,31 +39,41 @@ public class Task_1 {
         HttpEntity entity = httpresponse.getEntity();
         String json = EntityUtils.toString(entity, StandardCharsets.UTF_8);
         String datetime = JsonPath.parse(json).read("$.datetime");
-        String hourse = datetime.substring(11,13);
 
-        return hourse;
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        Date date = parser.parse(datetime);
+        SimpleDateFormat formatter = new SimpleDateFormat("HH");
+
+        return Integer.parseInt(formatter.format(date));
     }
     public static String getName() throws IOException {
         System.out.println("Как тебя зовут?");
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String yourName = br.readLine();
-        return yourName;
+        return br.readLine();
     }
     public static void getGreeting() throws IOException {
-        String yourTime = getTime();
+        int yourTime = 0;
+        try {
+            yourTime = getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         String yourName = getName();
 
-        if (Integer.parseInt(yourTime) <= 4 && Integer.parseInt(yourTime) >= 0){
+        if (yourTime <= 4 && yourTime >= 0){
             System.out.println("Доброй ночи, " + yourName);
         }
-        if (Integer.parseInt(yourTime) <= 9 && Integer.parseInt(yourTime) >= 5){
+        else if (yourTime <= 9 && yourTime >= 5){
             System.out.println("Доброе утро, " + yourName);
         }
-        if (Integer.parseInt(yourTime) <= 16 && Integer.parseInt(yourTime) >= 10){
+        else if (yourTime <= 16 && yourTime >= 10){
             System.out.println("Добрый день, " + yourName);
         }
-        if (Integer.parseInt(yourTime) <= 23 && Integer.parseInt(yourTime) >= 17){
+        else if (yourTime <= 23 && 17 <= yourTime){
             System.out.println("Добрый вечер, " + yourName);
+        }
+        else {
+            System.out.println("Сорян, " +  yourName + ", не удалось определить твое время");
         }
     }
 }
