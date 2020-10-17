@@ -22,6 +22,7 @@ public class Task_2 {
 
     static {
         try {
+            System.out.println("Введите текст:");
             text = getText();
         } catch (IOException e) {
             e.printStackTrace();
@@ -45,12 +46,10 @@ public class Task_2 {
             e.printStackTrace();
         }
     }
-
-
     public static String getText() throws IOException {
-        System.out.println("Введите текст:");
         BufferedReader text = new BufferedReader(new InputStreamReader(System.in));
         return text.readLine();
+
     }
     public static Integer getMaxLength() throws IOException {
         System.out.println("Установите максимальную длину:");
@@ -75,7 +74,7 @@ public class Task_2 {
         return pure_text;
     }
 
-    public static String getShotText() throws IOException {
+    public static String getShortText() throws IOException {
         String pureText = getPureText();
 
         String shortText = "";
@@ -103,7 +102,7 @@ public class Task_2 {
         json.put("pure_length", text_without_spaces.length());
         json.put("origin_text", text);
         json.put("pure_text", pure_text);
-        json.put("pure_short_text", getShotText());
+        json.put("pure_short_text", getShortText());
         System.out.println(json);
     }
 
