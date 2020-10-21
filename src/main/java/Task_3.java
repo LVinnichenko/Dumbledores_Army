@@ -61,7 +61,7 @@ public class Task_3
 
             if (map.get(key) >= wordsCount)
             {
-                repeatedWords.put((String) key, map.get(key));
+
             }
         }
         return repeatedWords;

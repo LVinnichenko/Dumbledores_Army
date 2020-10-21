@@ -43,19 +43,15 @@ public class Task_4_1 {
             for (int j = 0; j < numbers.length; j++) {
                 //System.out.println(String.valueOf(numbers[i] + diff[j]));
                 if (numbers[i] + diff[j] == n && j != i) {
-
                     res = true;
+                    break;
                 }
             }
         }
         return res;
     }
 
-
-
     public static void getResult(){
-
         System.out.println(getResolution(numbers, getDifference(numbers, n), n));
-
     }
 }
